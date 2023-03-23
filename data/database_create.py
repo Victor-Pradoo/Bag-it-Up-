@@ -1,4 +1,5 @@
-from sqlalchemy import Table, Column, Integer, Float, String, Date, MetaData, ForeignKey
+from sqlalchemy import create_engine, Table, Column, Integer, Float, String, Date, MetaData, ForeignKey
+engine = create_engine('string_de_conexao_do_banco', echo = True)
 meta = MetaData()
 
 usuario = Table(
