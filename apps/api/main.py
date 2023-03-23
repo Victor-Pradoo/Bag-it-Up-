@@ -19,11 +19,10 @@ def index() -> Dict:
 @app.post('/user')
 def upload_userdata(data:UserData) -> None:
      """
-     Runs the prediction of the data that came from the IrisNewData class
-     and returns that prediction
+     Nao ta definido ainda, to vendo oq essa funcao faz de verdade rsrs
       
      Parameters:
-         data = takes the values from the IrisNewData class that came from the POST request
+         data = user data
         
      """
      data = data.dict()
