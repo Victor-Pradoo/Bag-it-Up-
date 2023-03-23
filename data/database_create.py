@@ -53,3 +53,4 @@ clima_dia = Table(
    Column('NmClimaPredominante', String)
 )
 
+meta.create_all(engine)
