@@ -4,9 +4,13 @@ sys.path.append("/code/app/")
 # 1. Library imports
 from typing import Dict
 from fastapi import FastAPI
-from InputData import UserData, TripData
+from InputData import UserData, ModelData
+
 # 2. Create the app object
-app = FastAPI()
+app = FastAPI(
+      title="Bag It Up API",
+      description="API for input user data and to make predictions",
+      version="1.0")
 
 # # 3. Index route, opens automatically on http://0.0.0.0:80
 @app.get('/')
@@ -27,3 +31,8 @@ def upload_userdata(data:UserData) -> None:
      """
      data = data.dict()
      return { 'Data' :  data}
+
+
+@app.get('/model')
+def predict() -> None:
+    return { 'message' :  'ok'}
