@@ -1,0 +1,22 @@
+#main-mala{
+    box-sizing: border-box;
+    padding: 20px;
+    padding-top: calc(20px + var(--heigh-navbar));
+    padding-bottom: calc(var(--heigh-navbar));
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.add-item{
+    width: 19% ;
+    vertical-align: top ;
+    float: right ;
+    height:  30px ;
+    margin: 0 ;
+    border-radius: 5px ;
+    border: 0px ;
+    background-color: var(--orange);
+    font-size: 24px;
+    color: #fff
+}
