@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import Arrow from '../component/Arrow.js'
 import Cross from '../component/Cross.js'
+import { SalvaViagem } from '../services/viagemService.js'
 
 function ItemMala({item, qtd}){
     const [qtdItem, setQtdItem] = useState(qtd)
@@ -22,7 +23,15 @@ function ItemMala({item, qtd}){
 }
 
 function Mala() {
-
+        
+    async function salvarViagem() {
+        console.log('Enviando dados para api');
+        const response = await SalvaViagem('teste');
+        const data = await response.data;
+        console.log("Dados recebidos: ", data);
+        navigate('/historico');
+    }
+    
     const navigate = useNavigate()
     const routeParams = useParams();
 
@@ -61,7 +70,7 @@ function Mala() {
                     <div>Mala Grande</div>
                     <div>68cm x 45cm x 26cm</div>
                 </div>
-                <div className="home-finish-button" onClick={() => navigate('/historico')}>Salvar</div>
+                <div className="home-finish-button" onClick={() => salvarViagem('teste') }>Salvar</div>
             </div> 
         </>
     );
