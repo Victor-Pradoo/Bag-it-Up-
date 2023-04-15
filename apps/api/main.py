@@ -12,7 +12,7 @@ app = FastAPI(
       description="API for input user data and to make predictions",
       version="1.0")
 
-# # 3. Index route, opens automatically on http://0.0.0.0:80
+# 3. Index route
 @app.get('/')
 def index() -> Dict:
          """
