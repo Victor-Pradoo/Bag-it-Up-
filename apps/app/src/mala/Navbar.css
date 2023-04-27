@@ -13,6 +13,7 @@
     height: 100%;
     width: 33.3333%;    
     transition: background-color .5s;
+    background-color: rgba(255, 255, 255, 0);
     box-sizing: border-box;
 }
 
