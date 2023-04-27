@@ -1,0 +1,38 @@
+
+:root{
+    --orange: rgb(255, 148, 72);
+    --orange2: rgb(240, 100, 0);
+    --orange-dark: rgb(71, 36, 9);
+    --orange-light: rgb(255, 191, 146);
+    --gray-light: #ddd;
+    --heigh-navbar: 55px;
+}
+
+.main-gradient{
+    background: var(--orange);
+    background: linear-gradient(150deg, var(--orange) 0%, var(--orange2) 100%);
+}
+
+.rounded-sheet{
+    border-radius: 10px;
+    box-shadow: var(--main-shadow)
+}
+
+.h-cen{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.v-cen{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.vh-cen{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
