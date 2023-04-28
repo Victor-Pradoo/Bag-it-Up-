@@ -2,9 +2,9 @@ import React, { Children , useRef } from "react";
 import {useState, useEffect, useMemo} from 'react';
 import { useNavigate } from "react-router-dom";
 
-import Add from '../component/Add.js'
-import ListIcon from '../component/List.js'
-import HomeIcon from '../component/Home.js'
+import Add from '../icons/Add.js'
+import ListIcon from '../icons/List.js'
+import HomeIcon from '../icons/Home.js'
 
 
 function Navbar() {

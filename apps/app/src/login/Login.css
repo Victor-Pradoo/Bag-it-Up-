@@ -4,11 +4,6 @@
     overflow: hidden;
 }
 
-:root {
-    --b-radius: 16px;
-    --main-shadow: 0px 10px 25px 0px
-}
-
 @keyframes fadein {
     0%   {opacity: 0%;}
     100% {opacity: 100%;}
