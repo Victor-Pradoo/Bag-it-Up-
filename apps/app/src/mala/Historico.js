@@ -2,7 +2,7 @@ import React, { Children, useRef } from "react";
 import {useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 
-import Arrow from '../component/Arrow.js'
+import Arrow from '../component/icons/Arrow.js'
 
 function ButtonMala({nomeViagem}){
     const navigate = useNavigate()

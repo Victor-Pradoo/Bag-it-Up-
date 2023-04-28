@@ -1,8 +1,8 @@
 import React, { Children, useRef } from "react";
 import {useState, useEffect, useMemo} from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import Arrow from '../component/Arrow.js'
-import Cross from '../component/Cross.js'
+import Arrow from '../component/icons/Arrow.js'
+import Cross from '../component/icons/Cross.js'
 
 function ItemMala({item_id, initial_qtd, removeItem}){
 
@@ -225,6 +225,7 @@ function Mala() {
                     <div>68cm x 45cm x 26cm</div>
                 </div>
                 <div className="mala-finish-button" onClick={() => navigate('/historico')}>Salvar</div>
+                <div className='footer-spacing'></div>
             </div> 
         </>
     );

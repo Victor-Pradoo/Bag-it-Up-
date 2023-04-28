@@ -1,11 +1,19 @@
 
 :root{
-    --orange: rgb(255, 148, 72);
+    --orange: rgb(72, 197, 255);
+    --orange2: rgb(0, 47, 255);
+    --orange-dark: rgb(9, 26, 71);
+    --orange-light: rgb(146, 202, 255);
+    --orange-lighter: rgb(220, 235, 255);
+    --orange-lighter-trans: rgba(220, 234, 255, 0.37);
+    /* --orange: rgb(255, 148, 72);
     --orange2: rgb(235, 106, 0);
     --orange-dark: rgb(71, 36, 9);
-    --orange-light: rgb(255, 191, 146);
+    --orange-light: rgb(255, 191, 146); */
     --gray-light: #ddd;
     --heigh-navbar: 55px;
+    --b-radius: 16px;
+    --main-shadow: 0px 10px 25px 0px
 }
 
 .main-gradient{
@@ -35,4 +43,8 @@
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.shadow{
+    box-shadow: var(--main-shadow) #0000002f
 }

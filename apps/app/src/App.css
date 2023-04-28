@@ -61,3 +61,7 @@ select{
   font-weight: 300;
 }
 
+.footer-spacing{
+  width: 100vw;
+  height: var(--heigh-navbar);
+}

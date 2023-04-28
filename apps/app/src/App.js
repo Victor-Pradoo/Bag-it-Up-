@@ -2,14 +2,15 @@ import React, {Component} from "react";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // CSS
+import './generic.css'
 import './App.css'
 import './login/Login.css'
 import './mala/Create.css'
-import './mala/Navbar.css'
 import './mala/Historico.css'
 import './mala/Mala.css'
 import './login/Background.css'
-import './generic.css'
+import './home/Home.css'
+import './component/navbar/Navbar.css'
 
 // JSX
 // import NavBar from './Nav';
@@ -18,7 +19,8 @@ import Create from './mala/Create'
 import Historico from './mala/Historico'
 import Mala from './mala/Mala'
 import Background from './login/Background';
-import Navbar from './mala/Navbar.js'
+import Home from './home/Home'
+import Navbar from './component/navbar/Navbar.js'
 
 class App extends Component {
   render() {
@@ -30,8 +32,9 @@ class App extends Component {
           <Route path="/bag-it-up/" element={<Login/>}/>
           <Route path="/" element={<Login/>}/>
           <Route path="/create" element={<Create/>}/>
-          <Route path="/Historico" element={<Historico/>}/>
-          <Route path="/Historico/:id_viagem" element={<Mala/>}/>
+          <Route path="/home" element={<Home/>}/>
+          <Route path="/historico" element={<Historico/>}/>
+          <Route path="/historico/:id_viagem" element={<Mala/>}/>
         </Routes>
       </BrowserRouter>
     );

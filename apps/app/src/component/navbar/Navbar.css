@@ -4,6 +4,7 @@
     height: var(--heigh-navbar);
     width: 100%;
     bottom: 0;
+    z-index: 10;
     /* border-radius: var(--b-radius) var(--b-radius) 0px 0px; */
 }
 
