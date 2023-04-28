@@ -32,13 +32,13 @@ function Login() {
                 <div className='vh-cen' style={{height:'auto',width:'100%', padding: '10%', boxSizing:'border-box'}}> 
                     <div 
                         className="login-button"
-                        onClick={() => navigate('/home')}
+                        onClick={() => navigate('/create')}
                     >
                         Login
                     </div>
                     <div
                         className="login-button"
-                        onClick={() => navigate('/home')}
+                        onClick={() => navigate('/create')}
                     >
                         Convidado
                     </div>

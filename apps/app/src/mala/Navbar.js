@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Add from '../component/Add.js'
 import ListIcon from '../component/List.js'
+import HomeIcon from '../component/Home.js'
 
 
 function Navbar() {
@@ -14,10 +15,14 @@ function Navbar() {
     return (
         <div id='main-navbar' className="main-gradient"> 
             <Add
-                className={'navbar-icon add '+ (page_name == '/home' && 'active')}
-                onClick={() => navigate('/home')}
+                className={'navbar-icon add '+ (page_name == '/create' && 'active')}
+                onClick={() => navigate('/create')}
             />
                 
+            <HomeIcon
+                className={'navbar-icon home '+ (page_name == '/home' && 'active')}
+                onClick={() => navigate('/home')}
+            />
             <ListIcon
                 className={'navbar-icon list '+ (page_name == '/historico' && 'active')}
                 onClick={() => navigate('/historico')}

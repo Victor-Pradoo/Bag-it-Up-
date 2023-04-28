@@ -4,21 +4,21 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // CSS
 import './App.css'
 import './login/Login.css'
-import './home/Home.css'
-import './home/Navbar.css'
-import './home/Historico.css'
-import './home/Mala.css'
+import './mala/Create.css'
+import './mala/Navbar.css'
+import './mala/Historico.css'
+import './mala/Mala.css'
 import './login/Background.css'
 import './generic.css'
 
 // JSX
 // import NavBar from './Nav';
 import Login from './login/Login'
-import Home from './home/Home'
-import Historico from './home/Historico'
-import Mala from './home/Mala'
+import Create from './mala/Create'
+import Historico from './mala/Historico'
+import Mala from './mala/Mala'
 import Background from './login/Background';
-import Navbar from './home/Navbar.js'
+import Navbar from './mala/Navbar.js'
 
 class App extends Component {
   render() {
@@ -29,7 +29,7 @@ class App extends Component {
         <Routes>
           <Route path="/bag-it-up/" element={<Login/>}/>
           <Route path="/" element={<Login/>}/>
-          <Route path="/home" element={<Home/>}/>
+          <Route path="/create" element={<Create/>}/>
           <Route path="/Historico" element={<Historico/>}/>
           <Route path="/Historico/:id_viagem" element={<Mala/>}/>
         </Routes>

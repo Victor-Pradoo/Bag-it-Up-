@@ -9,7 +9,7 @@ function ButtonMala({nomeViagem}){
 
     return(
         <div
-            className="home-question"
+            className="mala-question"
             onClick={() => navigate('/historico/'+encodeURIComponent(nomeViagem))}
         >
             <div>{nomeViagem}</div>
@@ -26,7 +26,7 @@ function Historico() {
         <>
             <div className="top-title main-gradient">Viagens cadastradas</div>
             <div id='main-historico'> 
-                <div className="home-question-title">Ativas</div>
+                <div className="mala-question-title">Ativas</div>
                     <ButtonMala
                         nomeViagem={'Orlando - Negócios'}
                     />                
@@ -37,7 +37,7 @@ function Historico() {
                         nomeViagem={'Visitar Avó'}
                     />                
                 <div
-                    className="home-question-title"
+                    className="mala-question-title"
                     style={{marginTop: '15px'}}
                     onClick={() => setShowHistorico(!showHistorico)}
                 >
