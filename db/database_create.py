@@ -1,5 +1,13 @@
 from sqlalchemy import create_engine, Table, Column, Integer, Float, String, Date, MetaData, ForeignKey
-engine = create_engine('mssql+pyodbc://sa:123@localhost/bagitup?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes', echo=True)
+from sqlalchemy.orm import sessionmaker
+
+userdb = "teste"
+passworddb = "teste"
+ip = "34.228.167.153:5432"
+url_connection = f'postgresql://{userdb}:{passworddb}@{ip}/bag'
+
+engine = create_engine('postgresql://teste:teste@34.228.167.153:5432/bag', echo=True)
+
 meta = MetaData()
 
 usuario = Table(
