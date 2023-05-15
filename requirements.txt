@@ -1,2 +1,4 @@
 fastapi==0.94.1
 SQLAlchemy==2.0.8
+psycopg2==2.9.6
+request

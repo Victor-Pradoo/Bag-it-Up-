@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine, Table, Column, Integer, Float, String, Date, MetaData, ForeignKey
-engine = create_engine('mssql+pyodbc://sa:123@localhost/bagitup?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes', echo=True)
+engine = create_engine('postgresql+psycopg2://postgres:1818@localhost/postgres', echo=True)
 meta = MetaData()
 
 usuario = Table(
