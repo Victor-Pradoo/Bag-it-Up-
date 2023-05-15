@@ -1,11 +1,12 @@
 from sqlalchemy import create_engine, Table, Column, Integer, Float, String, Date, MetaData, ForeignKey
-engine = create_engine('postgresql+psycopg2://postgres:1818@localhost/postgres', echo=True)
-# userdb = "teste"
-# passworddb = "teste"
-# ip = "34.228.167.153:5432"
-# url_connection = f'postgresql://{userdb}:{passworddb}@{ip}/bag'
-# engine = create_engine('postgresql://teste:teste@34.228.167.153:5432/bag', echo=True)
+from sqlalchemy.orm import sessionmaker
 
+userdb = "teste"
+passworddb = "teste"
+ip = "34.228.167.153:5432"
+url_connection = f'postgresql://{userdb}:{passworddb}@{ip}/bag'
+
+engine = create_engine('postgresql://teste:teste@34.228.167.153:5432/bag', echo=True)
 meta = MetaData()
 
 usuario = Table(
@@ -60,3 +61,12 @@ clima_dia = Table(
 )
 
 meta.create_all(engine)
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+# export the variables representing the tables
+usuario_table = usuario
+item_table = item
+mala_table = mala
+viagem_table = viagem

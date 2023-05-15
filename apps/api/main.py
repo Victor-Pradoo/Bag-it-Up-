@@ -1,13 +1,39 @@
+from datetime import date
+from fastapi import FastAPI, Request, Response
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy.ext.declarative import declarative_base
+
+from InputData import UserData
+from sqlalchemy.orm import sessionmaker
+from typing import Dict
 import sys
 import json
-sys.path.append("/code/app/")
+from database_create import usuario_table, viagem_table, item_table, mala_table
+from database_create import engine
+from pydantic import BaseModel
 
-# 1. Library imports
-from typing import Dict
-from fastapi import FastAPI, Request
-from InputData import *
-from random import randrange
-from fastapi.middleware.cors import CORSMiddleware
+class Usuario(BaseModel):
+    id_usuario: int
+    InSexo: str
+    DtNascimento: date
+    NmUsuario: str
+    InFilhos: str
+Base = declarative_base()
+
+class UsuarioDB(Base):
+    __tablename__ ='usuario'
+    id_usuario = Column(Integer, primary_key=True)
+    InSexo = Column(String)
+    DtNascimento = Column(Date)
+    NmUsuario = Column(String)
+    InFilhos = Column(String)
+
+Session = sessionmaker(bind=engine)
+
+sys.path.append("/code/app/")
 
 origins = [
     "http://localhost",
@@ -80,4 +106,93 @@ async def salvar_viagem(request: Request) -> Dict:
       print(json_data)
       return {'message' : 'Viagem salva'}
 
-      
+@app.post('/users/save')
+async def salvar_usuario(user: Usuario) -> Dict:
+    usuario_instance = UsuarioDB(
+        InSexo=user.InSexo,
+        DtNascimento=user.DtNascimento,
+        NmUsuario=user.NmUsuario,
+        InFilhos=user.InFilhos
+    )
+    
+    # Create a new session and add the usuario instance to it
+    session = Session()
+    session.add(usuario_instance)
+    
+    # Commit the changes and close the session
+    session.commit()
+    session.close()
+    
+    # Return a response indicating that the data was saved
+    return {"message": "Data saved successfully"}
+
+def convert_users_to_json(Users):
+    result = []
+    for row in Users:
+        user = {
+            "id": row[0],
+            "inSexo": row[1],
+            "DtNascimento": row[2].isoformat(),
+            "NmUsuario": row[3],
+            "inFilhos": row[4]
+        }
+        result.append(user)
+    encoded_users = jsonable_encoder(result)
+    return encoded_users
+
+def convert_items_to_json(items):
+    result = []
+    for row in items:
+        item = {
+            "id": row[0],
+            "inCategoria": row[1],
+            "VlVolumeItem": row[2],
+            "VlPeso": row[3],
+            "NmItem": row[4]
+        }
+        result.append(item)
+    encoded_items = jsonable_encoder(result)
+    return encoded_items
+
+def convert_viagens_to_json(viagens):
+    result = []
+    for row in viagens:
+        viagem = {
+            "id": row[0],
+            "id_usuario": row[1],
+            "NmLocalDestino": row[2],
+            "DtInicioViagem": row[3].isoformat(),
+            "DtFimViagem": row[4].isoformat(),
+            "inMeioTransporte": row[5],
+            "inTipoViagem": row[6]
+        }
+        result.append(viagem)
+    encoded_viagens = jsonable_encoder(result)
+    return encoded_viagens
+
+@app.get("/users")
+async def get_users():
+    # create a new session and query the database
+    session = Session()
+    rows = session.query(usuario_table).all()
+    session.close()
+    # convert users list to a JSON-serializable format
+    jsonUsers = convert_users_to_json(rows)
+    return jsonUsers
+
+
+@app.get("/items")
+async def get_items():
+    session = Session()
+    rows = session.query(item_table).all()
+    session.close()
+    jsonItems = convert_items_to_json(rows)
+    return jsonItems
+
+@app.get("/viagens")
+async def get_viagens(id_usuario: int):
+    session = Session()
+    rows = session.query(viagem_table).filter(viagem_table.c.id_usuario == id_usuario).all()
+    session.close()
+    jsonViagem = convert_viagens_to_json(rows)
+    return jsonViagem
