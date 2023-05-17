@@ -1,0 +1,33 @@
+#main-navbar{
+    position: fixed;
+    background-color: #0f0;
+    height: var(--heigh-navbar);
+    width: 100%;
+    bottom: 0;
+    z-index: 10;
+    /* border-radius: var(--b-radius) var(--b-radius) 0px 0px; */
+}
+
+.navbar-icon{
+    display: inline-block;
+    fill: #fff;
+    height: 100%;
+    width: 33.3333%;    
+    transition: background-color .5s;
+    background-color: rgba(255, 255, 255, 0);
+    box-sizing: border-box;
+}
+
+.navbar-icon.add{
+    /* border-radius: 16px 0px 0px 0px; */
+}
+
+.navbar-icon.list{
+    /* border-radius: 0px 16px 0px 0px; */
+}
+
+.navbar-icon.active, .navbar-icon:active{
+    border-top: 3px solid var(--orange);
+    fill: var(--orange);
+    background-color: #f7f7f7;
+}
