@@ -15,6 +15,9 @@ from database_create import usuario_table, viagem_table, item_table, mala_table
 from database_create import engine
 from pydantic import BaseModel
 
+from InputData import *
+from random import randrange
+
 class Usuario(BaseModel):
     id_usuario: int
     InSexo: str

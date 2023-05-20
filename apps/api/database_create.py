@@ -6,7 +6,7 @@ passworddb = "teste"
 ip = "34.228.167.153:5432"
 url_connection = f'postgresql://{userdb}:{passworddb}@{ip}/bag'
 
-engine = create_engine('postgresql://teste:teste@34.228.167.153:5432/bag', echo=True)
+engine = create_engine('postgresql://teste:teste@3.208.119.152:5432/bag', echo=True)
 meta = MetaData()
 
 usuario = Table(
