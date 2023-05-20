@@ -1,53 +1,69 @@
-#main-login{
+#backgound-login{
+    background-color: rgba(0, 0, 0, 0.562);
     height: 100dvh;
     width: 100%;
     overflow: hidden;
+    position: absolute;
+    z-index: 80;
 }
 
-@keyframes fadein {
-    0%   {opacity: 0%;}
-    100% {opacity: 100%;}
-  }
-
-@keyframes enter-bottom {
-    0%   {margin-bottom: -100%; opacity: 0%;}
-    100% {margin-bottom: 0; opacity: 100%;}
-  }
-
-#login-logo{
-    animation-name: fadein;
-    animation-duration: 2.5s;
-}
-
-#login-enterdiv{
-    position: fixed;
-    bottom: 0;
-    height: 40%;
-    width: 100%;
-    border-radius: var(--b-radius) var(--b-radius) 0px 0px;
-    animation-name: enter-bottom;
-    animation-duration: 2.5s;
-    animation-timing-function: cubic-bezier(0.64, 0.07, 0.17, 1);
-    overflow: hidden;
-}
-
-.login-button{
-    box-shadow: var(--main-shadow) #0000002a;
+#login-popupdiv{
+    width: 85%;
+    max-width: 400px;
+    height: fit-content;
     background-color: #fff;
-    height: 8dvh;
+    border-radius: 10px;
+    padding: 20px;
     box-sizing: border-box;
-    border-radius: var(--b-radius);
-    margin-top: 8dvh;
-    margin-bottom: 8dvh;
+    position: fixed;
+    z-index: 100;
+}
+
+#login-title{
+    font-size: 36px;
+    text-align: center;
+}
+
+.login-input{
+    width: 100%;
+    box-sizing: border-box;
+    outline: 0px solid #888;
+    border-radius: 3px;
+    border: 1px solid #888 
+
+}
+
+.login-input-div{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.login-input-title{
+}
+
+.login-submit-div{
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    outline: 3px solid rgba(124, 59, 13, 0);
-    transition: outline .3s;
-    letter-spacing: .1rem;
+    height: fit-content;
+    width: 100%;
+    margin-top: 10px;
 }
 
-.login-button:active{
-    outline: 3px solid var(--orange-dark);
+.login-submit{
+    height: 50px;
+    width: 120px;
+    border-radius: 5px;
+    border: 0px solid;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: var(--orange2);
+    color: #fff;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 20px;
+}
+
+.login-submit:active{
+    background-color: var(--orange-light);
 }

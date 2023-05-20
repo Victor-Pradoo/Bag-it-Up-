@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // CSS
 import './generic.css'
 import './App.css'
+import './login/FirstScreen.css'
 import './login/Login.css'
 import './mala/Create.css'
 import './mala/Historico.css'
@@ -14,7 +15,7 @@ import './component/navbar/Navbar.css'
 
 // JSX
 // import NavBar from './Nav';
-import Login from './login/Login'
+import FirstScreen from './login/FirstScreen'
 import Create from './mala/Create'
 import Historico from './mala/Historico'
 import Mala from './mala/Mala'
@@ -29,8 +30,8 @@ class App extends Component {
         <Navbar/>
         <Background/>
         <Routes>
-          <Route path="/bag-it-up/" element={<Login/>}/>
-          <Route path="/" element={<Login/>}/>
+          <Route path="/bag-it-up/" element={<FirstScreen/>}/>
+          <Route path="/" element={<FirstScreen/>}/>
           <Route path="/create" element={<Create/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/historico" element={<Historico/>}/>

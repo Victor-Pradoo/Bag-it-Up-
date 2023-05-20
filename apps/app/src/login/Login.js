@@ -2,49 +2,32 @@ import React, { Children, useRef } from "react";
 import {useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+/* Esse componente deve ser usado como um popup */
+
+function Login({onClickOutside}) {
 
     const navigate = useNavigate();
 
     return (
-        <div id='main-login'>
-            <style>
-               {`
-                #main-navbar{
-                    display: none !important; 
-                }
-               `}
-            </style>
-            <div 
-                style={{
-                    height: '60%',
-                    width: '100%',
-                }}
-            >   
-                <div className='vh-cen' style={{height:'auto',width:'100%', padding: '10%', boxSizing:'border-box'}}> 
-                    <div id='login-logo' style={{borderRadius: '15px', backgroundColor:'#000', width: '60vw', aspectRatio: '1/1', margin: '0 auto'}}></div>
+        <>
+            <div id='backgound-login' className='blurry-background' onClick={onClickOutside}>
+            </div>
+            <div id='login-popupdiv' className='vh-cen'>
+                <div id='login-title'>Login</div>
+                <div className='login-input-div'>
+                    <span className='login-input-title'>Nickname</span>
+                    <input className='login-input'></input>
+                </div>
+                <div className='login-input-div'>
+                    <span className='login-input-title'>Password</span>
+                    <input className='login-input' type='password'></input>
+                </div>
+                <div className='login-submit-div'>
+                    <button className='login-submit' onClick={() => navigate('/create')}>Entrar</button>
+                    <button className='login-submit' onClick={() => navigate('/create')}>Cadastrar</button>
                 </div>
             </div>
-            <div 
-                id='login-enterdiv'
-                className='main-gradient'
-            >
-                <div className='vh-cen' style={{height:'auto',width:'100%', padding: '10%', boxSizing:'border-box'}}> 
-                    <div 
-                        className="login-button"
-                        onClick={() => navigate('/create')}
-                    >
-                        Login
-                    </div>
-                    <div
-                        className="login-button"
-                        onClick={() => navigate('/create')}
-                    >
-                        Convidado
-                    </div>
-                </div>
-            </div>
-        </div>
+        </>
     );
   }
 
