@@ -1,6 +1,7 @@
 import React, { Children, useRef } from "react";
 import {useState, useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
+import Globals from "../Globals"
 
 /* Esse componente deve ser usado como um popup */
 
@@ -8,21 +9,43 @@ function Login({onClickOutside}) {
 
     const navigate = useNavigate();
 
+    function login(user_id){
+        Globals['USER_ID'] = user_id
+        navigate('/create')
+    }
+
     const [data, setData] = useState(null);
 
-    useEffect(() => {
-      
-    }, []);
-
-
-
     function connect(){
+
+        if(data == null | !Object.keys(data).includes('pwd')){
+            return 
+        }
+
         fetch('http://localhost:5000/login/'+data['user']+'/'+data['pwd'])
         .then(response => response.text())
         .then(text => {
             console.log(text)
-            if(text == '1'){
-                navigate('/create')
+            if(text !== '0'){
+                login(text)
+            }
+        });
+    }
+
+    function register(){
+
+        if(data == null || !Object.keys(data).includes('pwd')){
+            return 
+        }
+
+        fetch('http://localhost:5000/register/'+data['user']+'/'+data['pwd'])
+        .then(response => response.text())
+        .then(text => {
+            if(text !== '0'){
+                login(text)
+                console.log('Usuario cadastrado!')
+            } else {
+                console.log('Usuario já estava cadastrado!')
             }
         });
     }
@@ -46,8 +69,8 @@ function Login({onClickOutside}) {
                     ></input>
                 </div>
                 <div className='login-submit-div'>
-                    <button className='login-submit' onClick={() => connect()}>Entrar</button>
-                    <button className='login-submit' onClick={() => ''}>Cadastrar</button>
+                    <button className='login-submit entrar' onClick={() => connect()}>Entrar</button>
+                    <button className='login-submit cadastrar' onClick={() => register()}>Cadastrar</button>
                 </div>
             </div>
         </>
