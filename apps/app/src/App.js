@@ -35,7 +35,7 @@ class App extends Component {
           <Route path="/create" element={<Create/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/historico" element={<Historico/>}/>
-          <Route path="/historico/:id_viagem" element={<Mala/>}/>
+          <Route path="/historico/:id_viagem/:nome_viagem" element={<Mala/>}/>
         </Routes>
       </BrowserRouter>
     );

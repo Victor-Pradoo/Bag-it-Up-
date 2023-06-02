@@ -46,15 +46,21 @@
 }
 
 #home-daysleft-dias{
-    font-size: 70px;    
+    font-size: 60px;    
+    position: relative;
+    top: 16px
 }
 
 #home-daysleft-dias-text{
     font-size: 40px;
     position: relative;
-    top: -7px
+    top: 4px
 }
 
+@keyframes opacidade {
+    from {opacity: 0;}
+    to {opacity: 100;}
+  }
 .home-div{
     box-sizing: border-box;
     padding: 30px;
@@ -65,6 +71,8 @@
     font-size: 23px;
     margin-top: 30px;
     margin-bottom: 30px;
+    animation-name: opacidade;
+    animation-duration: 1s;
 }
 
 .home-welcome-div{

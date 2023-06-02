@@ -119,9 +119,9 @@ function Create() {
                 body: JSON.stringify(inputedData)
             })
             .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                navigate('/historico/Nova%20Viagem')
+            .then(id_viagem => {
+                console.log('Success:', id_viagem);
+                navigate('/historico/'+id_viagem+'/'+inputedData.titulo)
             })
             .catch((error) => {
                 console.error('Error:', error);

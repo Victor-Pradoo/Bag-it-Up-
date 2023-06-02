@@ -4,8 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Arrow from '../component/icons/Arrow.js'
 import Cross from '../component/icons/Cross.js'
 
-function ItemMala({item_id, initial_qtd, removeItem}){
-
+function ItemMala({item_id, initial_qtd, removeItem, setQtdItem}){
     const item = useMemo(() => ALL_POSSIBLE_ITEMS[item_id].nome, [])
     const qtd = useMemo(() => initial_qtd, [])
 
@@ -30,19 +29,33 @@ function ItemMala({item_id, initial_qtd, removeItem}){
 
         value = keep_positive(value)
 
-        setQtdItem(value)
+        setLocalQtdItem(value)
     }
 
-    const [qtdItem, setQtdItem] = useState(qtd)
+    const [qtdItem, setLocalQtdItem] = useState(qtd)
 
     return(
         <div>
             <Cross onClick={() => removeItem(item_id)} style={{height:'24px', width:'24px', marginRight:'10px'}}/>
             <div style={{display:'inline-block', verticalAlign:'top', position: 'relative', fontSize:'20px'}}>{item}</div>
             <div style={{float:'right', width: '74px', display:'flexbox'}}>
-                <Arrow style={{height:'27px', width:'27px', transform:'rotate(90deg)', float:'right'}} onClick={() => setQtdItem(keep_positive(qtdItem -1))}/>
+                <Arrow 
+                    style={{height:'27px', width:'27px', transform:'rotate(90deg)', float:'right'}}
+                    onClick={() => {
+                        var val = keep_positive(qtdItem - 1)
+                        setQtdItem(item_id, val)
+                        setLocalQtdItem(val)
+                    }}
+                />
                 <input type='text' className='item-qtd-input' value={qtdItem} onChange={handle_input_change}></input>
-                <Arrow style={{height:'27px', width:'27px', transform:'rotate(-90deg)', float:'left'}} onClick={() => setQtdItem(keep_positive(qtdItem +1))}/>
+                <Arrow
+                    style={{height:'27px', width:'27px', transform:'rotate(-90deg)', float:'left'}}
+                    onClick={() => {
+                        var val = keep_positive(qtdItem + 1)
+                        setQtdItem(item_id, val)
+                        setLocalQtdItem(val)
+                    }}
+                />
             </div>
         </div>
     )
@@ -50,54 +63,63 @@ function ItemMala({item_id, initial_qtd, removeItem}){
 
 // Isso será armazenado no banco, não aqui
 const ALL_POSSIBLE_ITEMS = {
-    0:{
+    casaco:{
         nome:'Casaco'
     },
-    1:{
+    calca:{
         nome:'Calça'
     },
-    2:{
+    blusa:{
         nome:'Blusa'
     },
-    3:{
+    "roupa intima":{
         nome:'Roupa íntima'
     },
-    4:{
+    passaporte:{
         nome:'Passaporte'
     },
-    5:{
+    carteira:{
         nome:'Carteira'
     },
-    6:{
+    toalha:{
         nome:'Toalha'
     },
-    7:{
+    'escova de dentes':{
         nome:'Escova de Dentes'
     },
-    8:{
+    ocolos:{
         nome:'Oculos'
     },
-    9:{
+    vestido:{
         nome:'Vestido'
     },
-    10:{
+    sapatos:{
         nome:'Sapato'
     },
-    11:{
+    chinelo:{
         nome:'Chinelo'
     },
-    12:{
+    fone:{
         nome:'Fone'
     },
-    13:{
+    'carregador de celular':{
         nome:'Carregador de Celular'
     },
-    14:{
+    maquinagem:{
         nome:'Maquiagem'  
-    }, 
+    },
+    shorts:{
+        nome:'Shorts'  
+    },
+    regata:{
+        nome:'Regata'  
+    },
+    'roupa de banho':{
+        nome:'Roupa de banho'  
+    },
 }
 
-function MalaItens({itemsMala, setItemsMala, removeItem}) {
+function MalaItens({itemsMala, setQtdItem, removeItem}) {
 
     return(
         <>
@@ -108,6 +130,7 @@ function MalaItens({itemsMala, setItemsMala, removeItem}) {
                         item_id={itemMala.item_id}
                         initial_qtd={itemMala.qtd}
                         removeItem={removeItem}
+                        setQtdItem={setQtdItem}
                     />
                 ))
                 :
@@ -132,100 +155,146 @@ function Mala() {
     const navigate = useNavigate()
     const routeParams = useParams();
     
-    const [itemsMala, setItemsMala] = useState([
-        {item_id:0, qtd:1,},
-        {item_id:1, qtd:5,},
-        {item_id:2, qtd:10,},
-        {item_id:3, qtd:11,},
-        {item_id:4, qtd:1,},
-        {item_id:5, qtd:1,},
-        {item_id:6, qtd:3,},
-        {item_id:7, qtd:1,},
-    ])
+    // {item_id:'calca', qtd:1,},
+    // {item_id:'blusa', qtd:5,},
+    // {item_id:'passaporte', qtd:10,},
+    // {item_id:'roupa de banho', qtd:11,},
+    // {item_id:'carteira', qtd:1,},
+    // {item_id:'vestido', qtd:1,},
+    // {item_id:'roupa intima', qtd:3,},
+    // {item_id:'fone', qtd:1,},
+
+    const [itemsMala, setItemsMala] = useState(null)
+
+    useEffect(() => {
+        fetch('http://localhost:5000/mala_json/'+routeParams.id_viagem)
+        .then(response => response.json())
+        .then(json => {
+            setItemsMala(json)
+        });
+    }, [])
+
 
     const removeItem = (item_id) => {
-        for(var i=0; i<itemsMala.length; i++){
-            let el = itemsMala[i]
-            if (el.item_id == item_id){
-                break
-            }
+        const new_items_mala = []
+        for(const el of itemsMala){
+            if(el.item_id !== item_id)
+                new_items_mala.push(el)
         }
-        itemsMala.splice(i, 1)
-        setItemsMala([...itemsMala])
+        setItemsMala(new_items_mala)
     }
 
     const addItem = (item_id) => {
-        if (Object.keys(ALL_POSSIBLE_ITEMS).map((x) => parseInt(x)).includes(item_id)){
-            var list = [...itemsMala]
-            list.push({
-                item_id: item_id,
-                qtd: 1,
-            })
-            setItemsMala(list)
-        } else {
-            console.log('Select Inválido!')
-            console.log(Object.keys(ALL_POSSIBLE_ITEMS))
-            console.log(item_id)
+        if(item_id !== '-1'){
+            const new_line = {
+                item_id:item_id,
+                qtd:1,
+            }
+            setItemsMala([...itemsMala, new_line])
         }
     }
 
     const notUsedItems = useMemo(() => {
-        var usedIds = itemsMala.map((x) => x.item_id);
-        var retorno = {}
-        for(var i=0; i<Object.keys(ALL_POSSIBLE_ITEMS).length; i++){
-            var el = ALL_POSSIBLE_ITEMS[i]
-            if (!usedIds.includes(i))
-                retorno[i] = el
+        if(itemsMala != null){
+
+            var usedIds = itemsMala.map((x) => x.item_id);
+            var retorno = {}
+            for(const el of Object.keys(ALL_POSSIBLE_ITEMS)){
+                if (!usedIds.includes(el))
+                retorno[el] = ALL_POSSIBLE_ITEMS[el]
+            }
+            return retorno
         }
-        console.log(usedIds)
-        return retorno
     }, [itemsMala])
+
+    function salvarMala(){
+        
+        fetch('http://localhost:5000/save_mala', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({
+                data: itemsMala,
+                id_viagem: routeParams.id_viagem
+            })
+        })
+        .then(response => response.text())
+        .then(txt => {
+            if(txt == '1'){
+                console.log('Success:', txt);
+                navigate('/historico')
+            } else {
+                console.log('Error:', txt);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+        
+    }
+
+    function setQtdItem(item_id, qtd){
+        for(const el of itemsMala){
+            if(el.item_id == item_id){
+                el.qtd = qtd
+                break
+            }
+        }
+        setItemsMala([...itemsMala])
+    }
 
     return (
         <>
-            <div className="top-title main-gradient">{routeParams.id_viagem}</div>
+            <div className="top-title main-gradient">{routeParams.nome_viagem}</div>
             <div id='main-mala'> 
-                <div className="mala-question-title">Items</div>
-                <div className="mala-question">
-                    <MalaItens 
-                        itemsMala={itemsMala} 
-                        setItemsMala={setItemsMala}
-                        removeItem={removeItem}
-                    />
-                </div>
-                <div className="mala-question">
-                    <div>Adicionar item</div>
-                    <select className="mala-input" id='add-item-mala-select' style={{width:'77%', verticalAlign:'top'}}>
-                        {Object.keys(notUsedItems).map((item_id) => (
-                            <option
-                            key={item_id}
-                            value={item_id}
+                {itemsMala != null ?
+                <>
+                    <div className="mala-question-title">Items</div>
+                        <div className="mala-question">
+                            <MalaItens 
+                                itemsMala={itemsMala} 
+                                setQtdItem={setQtdItem}
+                                removeItem={removeItem}
+                            />
+                        </div>
+                        <div className="mala-question">
+                            <div>Adicionar item</div>
+                            <select className="mala-input" id='add-item-mala-select' style={{width:'77%', verticalAlign:'top'}}>
+                                {Object.keys(notUsedItems).map((item_id) => (
+                                    <option
+                                    key={item_id}
+                                    value={item_id}
+                                    >
+                                        {notUsedItems[item_id].nome}
+                                    </option>
+                                ))}
+                                <option disabled selected value={-1}>Selecione</option>
+                            </select>
+                            <button
+                                className="add-item"
+                                onClick={() => {
+                                    var el = document.getElementById('add-item-mala-select')
+                                    addItem(el.value)
+                                    el.value = -1
+                                }}
                             >
-                                {notUsedItems[item_id].nome}
-                            </option>
-                        ))}
-                        <option disabled selected value={-1}>Selecione</option>
-                    </select>
-                    <button
-                        className="add-item"
-                        onClick={() => {
-                            var el = document.getElementById('add-item-mala-select')
-                            console.log(el.value)
-                            addItem(parseInt(el.value))
-                            el.value = -1
-                        }}
-                    >
-                        {'>'}
-                    </button>
-                </div>
-                
-                <div className="mala-question-title">Recomendação</div>
-                <div className="mala-question">
-                    <div>Mala Grande</div>
-                    <div>68cm x 45cm x 26cm</div>
-                </div>
-                <div className="mala-finish-button" onClick={() => navigate('/historico')}>Salvar</div>
-                <div className='footer-spacing'></div>
+                                {'>'}
+                            </button>
+                        </div>
+                        
+                        <div className="mala-question-title">Recomendação</div>
+                        <div className="mala-question">
+                            <div>Mala Grande</div>
+                            <div>68cm x 45cm x 26cm</div>
+                        </div>
+                        <div className="mala-finish-button" onClick={() => salvarMala()}>Salvar</div>
+                    <div className='footer-spacing'></div>
+                </>
+                :
+                <div className="mala-question-title">Carregando</div>
+                }
             </div> 
         </>
     );
