@@ -29,6 +29,7 @@ function ItemMala({item_id, initial_qtd, removeItem, setQtdItem}){
 
         value = keep_positive(value)
 
+        setQtdItem(value)
         setLocalQtdItem(value)
     }
 
@@ -47,7 +48,11 @@ function ItemMala({item_id, initial_qtd, removeItem, setQtdItem}){
                         setLocalQtdItem(val)
                     }}
                 />
-                <input type='text' className='item-qtd-input' value={qtdItem} onChange={handle_input_change}></input>
+                <input
+                    type='text'
+                    className='item-qtd-input'
+                    value={qtdItem}
+                    onChange={handle_input_change}></input>
                 <Arrow
                     style={{height:'27px', width:'27px', transform:'rotate(-90deg)', float:'left'}}
                     onClick={() => {
