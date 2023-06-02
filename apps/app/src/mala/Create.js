@@ -88,6 +88,7 @@ function Create() {
     const [inputedData, setInputedData] = useState(
         {
             user_id: Globals.USER_ID,
+            titulo: null,
             partida: null,
             volta: null,
             temperatura: null,
@@ -104,6 +105,8 @@ function Create() {
             || inputedData.volta === null
             || inputedData.temperatura === null
             || inputedData.local === null
+            || inputedData.titulo === null
+            || inputedData.titulo === ''
         ){
             console.log('faltam itens!')
         } else {
@@ -131,6 +134,17 @@ function Create() {
             <div className="top-title main-gradient">Cadastrar viagem</div>
             <div id='main-mala'> 
                 <div className="mala-question-title">Sobre a sua viagem</div>
+                <div className="mala-question">
+                    <div>Titulo</div>
+                    <input
+                        className="mala-input"
+                        onChange={(e) => {
+                            let val = e.target.value
+                            inputedData.titulo = val
+                            setInputedData({...inputedData})
+                        }}
+                    />
+                </div>
                 <div className="mala-question">
                     <div>Partida</div>
                     <DateSelect
